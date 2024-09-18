@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -15,6 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useUserStore } from "@/providers/user-store-provider";
+import Link from "next/link";
 
 const nameSchema = z.object({
   name: z.string().min(2).max(50),
@@ -44,24 +44,32 @@ const NameForm = () => {
   return (
     <Form {...form}>
       <form
-        className="flex flex-col gap-4"
+        className="flex flex-col gap-4 border rounded-lg shadow-lg p-8"
         onSubmit={form.handleSubmit(onSubmit)}
       >
+        <h4 className="text-xl">Начать</h4>
         <FormField
           control={control}
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Имя</FormLabel>
+              <FormLabel>Напишите ваше имя</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="John Doe" />
+                <Input {...field} placeholder="Ваше имя" />
               </FormControl>
-              <FormDescription>Введите пожалуйста ваше имя</FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button>Отправить</Button>
+        <div className="flex gap-4">
+        <Button variant='ghost'>Сохранить</Button>
+        <Button asChild>
+          <Link href="/calculator">Открыть калькулятор</Link>
+        </Button>
+        <Button asChild>
+          <Link href="/password">Открыть генератор</Link>
+        </Button>
+        </div>
       </form>
     </Form>
   );

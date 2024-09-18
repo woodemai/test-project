@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { generatePassword } from "@/lib/generate-password";
+import { useUserStore } from "@/providers/user-store-provider";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -36,7 +37,8 @@ const passwordSchema = z.object({
 });
 
 const PasswordForm = () => {
-  const [generatedPassword, setGeneratedPassword] = useState("");
+  const addPassword = useUserStore(state => state.addPassword);
+
   const form = useForm<z.infer<typeof passwordSchema>>({
     resolver: zodResolver(passwordSchema),
     defaultValues: {
@@ -52,24 +54,23 @@ const PasswordForm = () => {
   const { control } = form;
 
   const onSubmit = (values: z.infer<typeof passwordSchema>) => {
-    setGeneratedPassword(generatePassword(values));
+    addPassword(generatePassword(values))
   };
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-4"
+        className="flex flex-col gap-4 size-full"
       >
-        <h2>{generatedPassword}</h2>
         <FormField
           control={control}
           name="length"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="w-full">
               <FormLabel>Длина пароля</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="8" type="number" />
+              <FormControl className="w-full">
+                <Input {...field} className="w-full" placeholder="8" type="number" />
               </FormControl>
               <FormMessage />
             </FormItem>

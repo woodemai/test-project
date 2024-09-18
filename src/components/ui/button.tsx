@@ -21,7 +21,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         calcDefault:
           "bg-white text-secondary-foreground shadow hover:bg-primary/5",
-        calcPrimary: "bg-blue-600 text-white  shadow-sm hover:bg-blue-600/90",
+        calcPrimary: "bg-primary text-primary-foreground  shadow-sm hover:bg-blue-600/90",
         calcSecondary:
           "bg-gray-300 text-secondary-foreground shadow-sm hover:bg-gray-300/70",
       },
