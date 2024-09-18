@@ -3,15 +3,25 @@ import { useState } from "react";
 import CalculatorButton from "./calculator/calc-button";
 
 const Calculator = () => {
+  const [equation, setEquation] = useState("");
   const [value, setValue] = useState("");
 
   return (
     <div className="w-fit rounded-lg bg-gray-100 p-4 shadow-sm">
-      <div className="w-full min-w-20 p-4 text-right text-5xl font-light">
+      <div className="w-full p-2 text-right text-3xl font-light text-gray-700">
+        <h3>{equation}</h3>
+      </div>
+      <div className="w-full min-w-20 p-2 text-right text-6xl font-light">
         <h2>{value}</h2>
       </div>
       <div className="grid w-fit grid-cols-4 gap-2">
-        <CalculatorButton onClick={() => setValue("")} color="calcSecondary">
+        <CalculatorButton
+          onClick={() => {
+            setValue("");
+            setEquation("");
+          }}
+          color="calcSecondary"
+        >
           C
         </CalculatorButton>
         <CalculatorButton
@@ -88,7 +98,10 @@ const Calculator = () => {
         </CalculatorButton>
         <CalculatorButton
           // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-          onClick={() => setValue((prev) => eval(prev))}
+          onClick={() => {
+            setEquation(value);
+            setValue((prev) => eval(prev));
+          }}
           color="calcPrimary"
         >
           =

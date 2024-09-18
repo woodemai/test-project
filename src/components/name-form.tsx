@@ -60,7 +60,7 @@ const NameForm = () => {
               <FormMessage />
             </FormItem>
           )}
-        ></FormField>
+        />
         <Button>Отправить</Button>
       </form>
     </Form>
